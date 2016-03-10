@@ -26,22 +26,22 @@ class Solution
         for (int i=2; i<=cp; i++) //Loop From Two to Peaks Count (Can't Be More Blocks Than Peaks)
         {
             if (N%i!=0) continue; //If Doesn't Evenly Divide, Skip Number
+			
 			int find = 0; //Peak(s) in Block
             int range = N/i; //Block Size
-			boolean ok = true; //Boolean to Continue Check Block Divisions
+			
 			for (int loc : peaksLoc) //Check Every Peak Location
 			{
 				int tmp = loc/i; //Divide Block At Location
+				
 				if (tmp>find) //If Peaks Still Within Blocks
 				{
-					ok = false; //Continally Check Divisions
 					cb = i; //Set Max Block Count
 					break; //Break Out of Loop
 				}
 				if (tmp==find) find++; // Increment No Peak in Block, Increment Find
 			}
-			if (find!=range) ok = false; //If Haven't, Continually Check Divisions
-			if (ok) return range; //If ok, Return Block Size
+			if (find==range) return range; //Find Equals Range, Return Range
         }
         
         return cb; //Return Blocks Count
@@ -62,7 +62,7 @@ class Solution
 		ArrayList <Integer> pl = new ArrayList<Integer>(); //List of Peak Locations
 		
 		for (int i=1; i<A.length-1; i++) //Loop Through Array
-            if (A[i]>A[i-1] && A[i]>A[i+1]) pl.add(i); //If Peak, Add Location to List
+            if (A[i]>Math.max(A[i-1], A[i+1])) pl.add(i); //If Peak, Add Location to List
 		
 		return pl; //Return List of Peak Locations
 	}
